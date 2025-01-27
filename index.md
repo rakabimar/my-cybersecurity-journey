@@ -1,7 +1,5 @@
-# Rakabima's Cybersecurity Journey
-This site documents my journey through cybersecurity.
+---
+layout: default
+title: Home
+---
 
-## The journies
-- [Projects](projects/)
-- [Courses](courses/)
-- [CTF Writeups](ctf-writeups/)

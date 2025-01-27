@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} - Rakabima's Cybersecurity Journey</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+    <nav class="bg-gray-800 border-b border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <a href="{{ site.baseurl }}/" class="text-xl font-bold">Rakabima</a>
+                    </div>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="{{ site.baseurl }}/" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700">Home</a>
+                    <a href="{{ site.baseurl }}/projects/" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700">Projects</a>
+                    <a href="{{ site.baseurl }}/courses/" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700">Courses</a>
+                    <a href="{{ site.baseurl }}/ctf-writeups/" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700">CTF Writeups</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="bg-gray-800 rounded-lg shadow-xl p-8">
+            <div class="max-w-3xl mx-auto">
+                {% if page.url == "/" %}
+                <!-- Homepage specific layout -->
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl font-bold mb-4">Cybersecurity Journey</h1>
+                    <p class="text-xl text-gray-400">Documenting my path through the world of cybersecurity</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                    <!-- Projects Card -->
+                    <div class="bg-gray-700 p-6 rounded-lg">
+                        <h2 class="text-xl font-semibold mb-4">Projects</h2>
+                        <p class="text-gray-300 mb-4">Hands-on experience building secure systems and infrastructure</p>
+                        <ul class="list-disc list-inside text-gray-400">
+                            {% assign project_dirs = site.pages | where_exp: "item", "item.path contains 'projects/'" | where_exp: "item", "item.name != 'index.md'" %}
+                            {% for project in project_dirs %}
+                            <li><a href="{{ site.baseurl }}{{ project.url }}" class="hover:text-white">{{ project.title | default: project.name | remove: '.md' }}</a></li>
+                            {% endfor %}
+                            {% if project_dirs.size == 0 %}
+                            <li class="text-gray-500">No projects available yet</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+
+                    <!-- Courses Card -->
+                    <div class="bg-gray-700 p-6 rounded-lg">
+                        <h2 class="text-xl font-semibold mb-4">Courses</h2>
+                        <p class="text-gray-300 mb-4">Professional training and certification progress</p>
+                        <ul class="list-disc list-inside text-gray-400">
+                            {% assign course_dirs = site.pages | where_exp: "item", "item.path contains 'courses/'" | where_exp: "item", "item.name == 'index.md'" | where_exp: "item", "item.path != 'courses/index.md'" %}
+                            {% for course in course_dirs %}
+                            {% assign course_name = course.path | split: '/' | slice: 1 | first | replace: '-', ' ' | capitalize %}
+                            <li><a href="{{ site.baseurl }}{{ course.url }}" class="hover:text-white">{{ course_name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <!-- CTF Writeups Card -->
+                    <div class="bg-gray-700 p-6 rounded-lg">
+                        <h2 class="text-xl font-semibold mb-4">CTF Writeups</h2>
+                        <p class="text-gray-300 mb-4">Detailed solutions and learning from CTF challenges</p>
+                        <ul class="list-disc list-inside text-gray-400">
+                            {% assign ctf_cats = site.pages | where_exp: "item", "item.path contains 'ctf-writeups/'" | where_exp: "item", "item.name == 'index.md'" | where_exp: "item", "item.path != 'ctf-writeups/index.md'" %}
+                            {% for cat in ctf_cats %}
+                            {% assign cat_name = cat.path | split: '/' | slice: 1 | first %}
+                            <li><a href="{{ site.baseurl }}{{ cat.url }}" class="hover:text-white">
+                                {% case cat_name %}
+                                    {% when 'binex' %}Binary Exploitation
+                                    {% when 'crypto' %}Cryptography
+                                    {% when 'foren' %}Forensics
+                                    {% when 'misc' %}Miscellaneous
+                                    {% when 'reveng' %}Reverse Engineering
+                                    {% when 'webex' %}Web Exploitation
+                                    {% else %}{{ cat_name | capitalize }}
+                                {% endcase %}
+                            </a></li>
+                            {% endfor %}
+                            {% if ctf_cats.size == 0 %}
+                            <li class="text-gray-500">No writeups available yet</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Latest Activities -->
+                <div class="bg-gray-700 p-6 rounded-lg mb-12">
+                    <h2 class="text-xl font-semibold mb-4">Latest Activities</h2>
+                    <div class="space-y-4">
+                        {% assign all_pages = site.pages | where_exp: "item", "item.date" | sort: 'date' | reverse %}
+                        {% for page in all_pages limit:3 %}
+                        <div class="border-l-4 border-blue-500 pl-4">
+                            <h3 class="font-medium">{{ page.title }}</h3>
+                            <p class="text-gray-400">{{ page.category | default: page.path | split: '/' | slice: 0 | first | capitalize }}</p>
+                        </div>
+                        {% endfor %}
+                        
+                        {% if all_pages.size == 0 %}
+                        <div class="border-l-4 border-blue-500 pl-4">
+                            <h3 class="font-medium">No recent activities</h3>
+                            <p class="text-gray-400">Add dates to your markdown files to see them here</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% else %}
+                <!-- Other pages layout -->
+                <div class="prose prose-invert max-w-none">
+                    {{ content }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+</body>
+</html>
