@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} - Rakabima's Cybersecurity Journey</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@tailwindcss/typography@0.4.1/dist/typography.min.css">
+    <style>
+        /* Custom styles for markdown content */
+        .prose-custom {
+            color: #f3f4f6; /* text-gray-100 */
+        }
+        .prose-custom a {
+            color: #60a5fa; /* text-blue-400 */
+            text-decoration: underline;
+            transition: color 0.3s;
+        }
+        .prose-custom a:hover {
+            color: #3b82f6; /* text-blue-500 */
+        }
+        .prose-custom code {
+            background: #4a5568; /* bg-gray-600 */
+            padding: 0.2em 0.4em;
+            border-radius: 0.25rem;
+            color: #f7fafc; /* text-gray-100 */
+        }
+        .prose-custom pre {
+            background: #2d3748; /* bg-gray-700 */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1.5em 0;
+            overflow-x: auto;
+            color: #d1d5db; /* text-gray-300 */
+        }
+        .prose-custom pre code {
+            background: transparent;
+            padding: 0;
+            border-radius: 0;
+            color: inherit;
+            font-size: 0.875em;
+            line-height: 1.7142857;
+        }
+        /* Add specific styling for language tags */
+        .prose-custom pre[class*="language-"] {
+            position: relative;
+        }
+        .prose-custom pre[class*="language-"]::before {
+            content: attr(class);
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            color: #9ca3af;
+            background: #374151;
+            border-bottom-left-radius: 0.375rem;
+        }
+        .prose-custom img {
+            border-radius: 0.5rem;
+            margin: 2rem 0;
+        }
+        .prose-custom h1, .prose-custom h2, .prose-custom h3, .prose-custom h4 {
+            color: #f3f4f6; /* text-gray-100 */
+            font-weight: 600;
+        }
+        /* Highlight subtitles */
+        .prose-custom h2 {
+            color: #60a5fa; /* text-blue-400 */
+            border-bottom: 2px solid #60a5fa;
+            padding-bottom: 0.3em;
+        }
+        .prose-custom h3 {
+            color: #fbbf24; /* text-yellow-400 */
+            border-bottom: 1px solid #fbbf24;
+            padding-bottom: 0.2em;
+        }
+        /* Improve paragraph readability */
+        .prose-custom p {
+            line-height: 1.6;
+            font-size: 1.05em;
+        }
+        /* Enhance list items */
+        .prose-custom ul, .prose-custom ol {
+            margin-left: 1.5em;
+        }
+        .prose-custom li {
+            margin-bottom: 0.5em;
+        }
+        /* Style blockquotes */
+        .prose-custom blockquote {
+            border-left: 4px solid #60a5fa;
+            background-color: #1f2937;
+            padding: 0.5em 1em;
+            margin: 1em 0;
+            font-style: italic;
+        }
+        /* Enhance bolded text readability */
+        .prose-custom strong,
+        .prose-custom b {
+            color: #ffffff; 
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+    {% include navbar.html %}
+
+    <main class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="bg-gray-800 rounded-lg shadow-xl p-8">
+            <div class="max-w-3xl mx-auto">
+                <!-- Breadcrumb -->
+                <div class="text-sm mb-8">
+                    <a href="{{ site.baseurl }}/" class="text-gray-400 hover:text-white">Home</a>
+                    <span class="text-gray-600 mx-2">/</span>
+                    <a href="{{ site.baseurl }}/courses" class="text-gray-400 hover:text-white">Courses</a>
+                    <span class="text-gray-600 mx-2">/</span>
+                    <a href="{{ site.baseurl }}/courses/hack-the-box" class="text-gray-400 hover:text-white">Hack The Box</a>
+                    <span class="text-gray-600 mx-2">/</span>
+                    <span class="text-white">{{ page.title }}</span>
+                </div>
+
+                <!-- Post Header -->
+                <header class="mb-8">
+                    <h1 class="text-3xl font-bold mb-4">{{ page.title }}</h1>
+                    {% if page.date %}
+                    <div class="flex items-center gap-4 mb-4">
+                        {% if page.path %}
+                        <span class="text-gray-400">{{ page.path }}</span>
+                        <span class="text-gray-400">•</span>
+                        {% endif %}
+                        <time datetime="{{ page.date | date_to_xmlschema }}" class="text-gray-400">
+                            {{ page.date | date: "%B %d, %Y" }}
+                        </time>
+                    </div>
+                    {% endif %}
+                </header>
+
+                <!-- Markdown Content -->
+                <article class="prose prose-lg prose-invert prose-custom max-w-none">
+                    {{ content }}
+                </article>
+
+                <!-- Navigation -->
+                <nav class="mt-12 pt-8 border-t border-gray-700">
+                    <div class="flex justify-between">
+                        {% if page.previous.url %}
+                        <a href="{{ site.baseurl }}{{ page.previous.url }}" class="text-gray-400 hover:text-white">
+                            <span class="block text-sm">Previous</span>
+                            <span class="block mt-1">{{ page.previous.title }}</span>
+                        </a>
+                        {% else %}
+                        <div></div>
+                        {% endif %}
+
+                        {% if page.next.url %}
+                        <a href="{{ site.baseurl }}{{ page.next.url }}" class="text-right text-gray-400 hover:text-white">
+                            <span class="block text-sm">Next</span>
+                            <span class="block mt-1">{{ page.next.title }}</span>
+                        </a>
+                        {% endif %}
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

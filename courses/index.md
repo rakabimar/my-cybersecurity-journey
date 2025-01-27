@@ -1,6 +1,15 @@
-# Courses
-Summaries, cheatsheets, and walktroughs of courses i have enrolled
+---
+layout: category
+title: Courses
+description: Summaries, cheatsheets, and walkthroughs of Cybersecurity courses i have enrolled in
+subcategories:
+  - title: Hack The Box
+    url: /courses/hack-the-box
+    description: Hack The Box Academy courses with skill assesments (CTF styled)
+    identifier: htb
 
-## Source
-- [Hack The Box](./hack-the-box)
-- [Try Hack Me](./try-hack-me)
+  - title: TryHackMe
+    url: /courses/try-hack-me
+    description: TryHackMe path-based courses
+    identifier: thm
+---

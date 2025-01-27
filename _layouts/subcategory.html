@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} - Rakabima's Cybersecurity Journey</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+    {% include navbar.html %}
+
+    <main class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="bg-gray-800 rounded-lg shadow-xl p-8">
+            <div class="max-w-3xl mx-auto">
+                <!-- Breadcrumb -->
+                <div class="text-sm mb-8">
+                    <a href="{{ site.baseurl }}/" class="text-gray-400 hover:text-white">Home</a>
+                    <span class="text-gray-600 mx-2">/</span>
+                    <a href="{{ site.baseurl }}{{ page.category_url }}" class="text-gray-400 hover:text-white">{{ page.category_title }}</a>
+                    <span class="text-gray-600 mx-2">/</span>
+                    <span class="text-white">{{ page.title }}</span>
+                </div>
+
+                <!-- Title and Description -->
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold mb-4">{{ page.title }}</h1>
+                    <p class="text-gray-400 text-lg">{{ page.description }}</p>
+                </div>
+
+                <!-- Learning Paths -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold mb-4">Learning Paths</h2>
+                    <div class="flex flex-wrap gap-4">
+                        {% for path in page.paths %}
+                        {% assign path_entries = page.entries | where: "path", path.name %}
+                        {% assign completed_in_path = path_entries | where: "status", "completed" | size %}
+                        {% assign total_in_path = path_entries | size %}
+                        <div class="bg-gray-700 rounded-lg p-4 flex-1 min-w-[250px]">
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="font-semibold">{{ path.name }}</h3>
+                                <span class="text-sm text-gray-400">{{ completed_in_path }}/{{ total_in_path }}</span>
+                            </div>
+                            <div class="bg-gray-600 rounded-full h-2">
+                                <div class="bg-{{ path.color }} h-2 rounded-full" 
+                                     style="width: {% if total_in_path > 0 %}{{ completed_in_path | times: 100.0 | divided_by: total_in_path }}{% else %}0{% endif %}%">
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Courses Section -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold mb-6">Courses</h2>
+                    <div class="space-y-4">
+                        {% for entry in page.entries %}
+                        <div class="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition duration-200">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center space-x-4">
+                                    <!-- Status Indicator -->
+                                    {% if entry.status == "completed" %}
+                                    <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+                                    {% elsif entry.status == "in_progress" %}
+                                    <span class="w-3 h-3 bg-yellow-500 rounded-full"></span>
+                                    {% else %}
+                                    <span class="w-3 h-3 bg-gray-500 rounded-full"></span>
+                                    {% endif %}
+                                    
+                                    <!-- Course Title -->
+                                    {% if entry.status == "upcoming" %}
+                                    <span class="text-gray-400">{{ entry.title }}</span>
+                                    {% else %}
+                                    <a href="{{ site.baseurl }}{{ entry.url }}" class="hover:text-blue-400">{{ entry.title }}</a>
+                                    {% endif %}
+                                </div>
+
+                                <!-- Date or Status -->
+                                <div class="text-sm text-gray-400">
+                                    {% if entry.date %}
+                                    {{ entry.date | date: "%B %d, %Y" }}
+                                    {% else %}
+                                    <span class="bg-gray-600 px-2 py-1 rounded text-xs uppercase">{{ entry.status }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <!-- Path Badge -->
+                            {% for path in page.paths %}
+                            {% if path.name == entry.path %}
+                            <div class="mt-2">
+                                <span class="bg-{{ path.color }} bg-opacity-20 text-{{ path.color }} px-2 py-1 rounded-full text-xs">
+                                    {{ entry.path }}
+                                </span>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Overall Progress -->
+                {% assign completed_courses = page.entries | where: "status", "completed" | size %}
+                {% assign total_courses = page.entries | size %}
+                {% assign progress_percentage = completed_courses | times: 100.0 | divided_by: total_courses %}
+                
+                <div class="mt-12 pt-8 border-t border-gray-700">
+                    <h2 class="text-2xl font-bold mb-6">Overall Progress</h2>
+                    <div class="bg-gray-700 rounded-full h-4 mb-2">
+                        <div class="bg-blue-500 h-4 rounded-full" style="width: {{ progress_percentage }}%"></div>
+                    </div>
+                    <p class="text-gray-400 text-sm">{{ completed_courses }} of {{ total_courses }} courses completed ({{ progress_percentage | round }}%)</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

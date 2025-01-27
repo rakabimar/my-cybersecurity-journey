@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} - Rakabima's Cybersecurity Journey</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+    {% include navbar.html %}
+
+    <main class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="bg-gray-800 rounded-lg shadow-xl p-8">
+            <div class="max-w-3xl mx-auto">
+                <!-- Breadcrumb -->
+                <div class="text-sm mb-8">
+                    <a href="{{ site.baseurl }}/" class="text-gray-400 hover:text-white">Home</a>
+                    <span class="text-gray-600 mx-2">/</span>
+                    <span class="text-white">{{ page.title }}</span>
+                </div>
+
+                <!-- Title and Description -->
+                <div class="mb-12">
+                    <h1 class="text-3xl font-bold mb-4">{{ page.title }}</h1>
+                    <p class="text-gray-400 text-lg">{{ page.description }}</p>
+                </div>
+
+                <!-- Categories Section -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold mb-6">Categories</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {% for subcategory in page.subcategories %}
+                        <a href="{{ site.baseurl }}{{ subcategory.url }}" 
+                           class="block bg-gray-700 rounded-lg p-6 hover:bg-gray-600 transition duration-200">
+                            <h3 class="text-xl font-semibold mb-2">{{ subcategory.title }}</h3>
+                            <p class="text-gray-400">{{ subcategory.description }}</p>
+                            
+                            {% assign category_posts = site.pages | 
+                                where: "subcategory", subcategory.identifier | 
+                                sort: "date" | reverse %}
+                            
+                            {% if category_posts.size > 0 %}
+                            <div class="mt-4">
+                                <p class="text-sm text-gray-500">Recent writeups:</p>
+                                <ul class="list-disc list-inside text-gray-300 mt-2">
+                                    {% for post in category_posts limit:3 %}
+                                    <li>{{ post.title }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Recent Updates -->
+                <div class="mt-12 pt-8 border-t border-gray-700">
+                    <h2 class="text-2xl font-bold mb-6">Recent Updates</h2>
+                    <div class="space-y-4">
+                        {% assign recent_posts = site.pages | 
+                            where_exp: "page", "page.subcategory != nil" | 
+                            sort: "date" | reverse | limit: 5 %}
+                        
+                        {% for post in recent_posts %}
+                        <div class="border-l-4 border-blue-500 pl-4">
+                            <h3 class="font-medium">{{ post.title }}</h3>
+                            <p class="text-gray-400 text-sm">{{ post.date | date: "%B %d, %Y" }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

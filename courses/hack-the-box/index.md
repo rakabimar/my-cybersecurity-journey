@@ -1,16 +1,43 @@
-# Hack The Box Courses
+---
+layout: subcategory
+title: Hack The Box Courses
+description: Collection of course notes and writeups from Hack The Box Academy
+category_title: Courses
+category_url: /courses
+paths:
+  - name: Web Application Penetration Testing
+    color: blue-500
+  - name: Bug Bounty Hunter
+    color: purple-500
+  - name: Defensive Security
+    color: green-500
+entries:
+  - title: Cross-Site Scripting (XSS)
+    url: /courses/hack-the-box/cross-site-scripting
+    date: 2024-01-15
+    status: completed
+    path: Web Application Penetration Testing
 
-## Courses
-- [Cross-Site Scripting (XSS)](./cross-site-scripting.md)
-- [SQL Injection Fundamentals](./sql-injection-fundamentals.md)
-- [Command Injections](./command-injections.md)
-- [File Upload Attacks](./file-upload-attacks.md)
-- [Server-side Attacks]
+  - title: SQL Injection Fundamentals
+    url: /courses/hack-the-box/sql-injection-fundamentals
+    date: 2024-01-10
+    status: completed
+    path: Web Application Penetration Testing
 
-<!-- - [Web Requests](./web-requests.md)
-- [Introduction to Web Applications](./intro-webapp.md)
-- [Using Web Proxies](./web-proxies.md)
-- [Information Gathering - Web Edition](./info-gathering.md)
-- [Attacking Web Applications with Ffuf](./web-fuzzing-ffuf.md)
-- [JavaScript Deobfuscation](./js-deobfuscation.md) -->
-<!-- - [SQLMap Essentials](./sqlmap-essentials.md) -->
+  - title: Command Injections
+    url: /courses/hack-the-box/command-injections
+    date: 2024-01-05
+    status: completed
+    path: Bug Bounty Hunter
+
+  - title: File Upload Attacks
+    url: /courses/hack-the-box/file-upload-attacks
+    date: 2023-12-28
+    status: completed
+    path: Bug Bounty Hunter
+
+  - title: Server-side Attacks
+    url: /courses/hack-the-box/server-side-attacks
+    status: upcoming
+    path: Defensive Security
+---

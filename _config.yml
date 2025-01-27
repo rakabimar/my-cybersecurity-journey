@@ -2,6 +2,8 @@ title: "Rakabima's Cybersecurity Journey"
 description: "Documentation of my cybersecurity learning journey"
 baseurl: "/my-cybersecurity-journey"
 markdown: kramdown
+kramdown:
+  input: GFM
 
 # Collections configuration
 collections:
@@ -33,3 +35,8 @@ defaults:
       path: "_ctf-writeups"
     values:
       type: "writeup"
+
+include:
+  - courses
+  - ctf-writeups
+  - projects
