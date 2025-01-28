@@ -1,7 +1,7 @@
 ---
 layout: category
 title: Courses
-description: Summaries, cheatsheets, and walkthroughs of Cybersecurity courses i have enrolled in
+description: Comprehensive documentation of my cybersecurity learning journey through industry-recognized platforms
 subcategories:
   - title: Hack The Box
     url: /courses/hack-the-box

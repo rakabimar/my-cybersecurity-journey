@@ -19,40 +19,38 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
                     <!-- Projects Card -->
-                    <div class="bg-gray-700 p-6 rounded-lg">
+                    <a href="{{ site.baseurl }}/projects" class="block bg-gray-700 p-6 rounded-lg transform transition hover:scale-105 hover:bg-gray-600">
                         <h2 class="text-xl font-semibold mb-4">Projects</h2>
-                        <p class="text-gray-300 mb-4">Hands-on experience building secure systems and infrastructure</p>
+                        <p class="text-gray-300 mb-4">Hands-on experience building secure systems</p>
                         <ul class="list-disc list-inside text-gray-400">
-                            {% for project in site.projects limit:3 %}
-                            <li><a href="{{ site.baseurl }}{{ project.url }}" class="hover:text-white">{{ project.title }}</a></li>
-                            {% endfor %}
+                            <li>Homelab Enterprise</li>
+                            <!-- Add more project categories as they come -->
                         </ul>
-                    </div>
+                    </a>
 
                     <!-- Courses Card -->
-                    <div class="bg-gray-700 p-6 rounded-lg">
+                    <a href="{{ site.baseurl }}/courses" class="block bg-gray-700 p-6 rounded-lg transform transition hover:scale-105 hover:bg-gray-600">
                         <h2 class="text-xl font-semibold mb-4">Courses</h2>
-                        <p class="text-gray-300 mb-4">Professional training and certification progress</p>
+                        <p class="text-gray-300 mb-4">Professional training and certifications</p>
                         <ul class="list-disc list-inside text-gray-400">
-                            {% assign courses_list = site.pages | where: "dir", "/courses/" %}
-                            {% for course in courses_list limit:3 %}
-                            <li><a href="{{ site.baseurl }}{{ course.url }}" class="hover:text-white">{{ course.title }}</a></li>
-                            {% endfor %}
+                            <li>Hack The Box</li>
+                            <li>Try Hack Me</li>
                         </ul>
-                    </div>
+                    </a>
 
                     <!-- CTF Writeups Card -->
-                    <div class="bg-gray-700 p-6 rounded-lg">
+                    <a href="{{ site.baseurl }}/ctf-writeups" class="block bg-gray-700 p-6 rounded-lg transform transition hover:scale-105 hover:bg-gray-600">
                         <h2 class="text-xl font-semibold mb-4">CTF Writeups</h2>
-                        <p class="text-gray-300 mb-4">Detailed solutions and learning from CTF challenges</p>
+                        <p class="text-gray-300 mb-4">CTF challenge solutions</p>
                         <ul class="list-disc list-inside text-gray-400">
-                            {% for writeup in site.pages %}
-                            {% if writeup.url contains 'ctf-writeups' and writeup.title %}
-                            <li><a href="{{ site.baseurl }}{{ writeup.url }}" class="hover:text-white">{{ writeup.title }}</a></li>
-                            {% endif %}
-                            {% endfor %}
+                            <li>Binary Exploitation</li>
+                            <li>Cryptography</li>
+                            <li>Forensics</li>
+                            <li>Miscellaneous</li>
+                            <li>Reverse Engineering</li>
+                            <li>Web Exploitation</li>
                         </ul>
-                    </div>
+                    </a>
                 </div>
 
                 <!-- Latest Activities -->

@@ -1,7 +1,7 @@
 ---
 layout: category
 title: CTF Writeups
-description: Writeups of past CTF challenges I have solved
+description: Writeups of past Capture The Flag (CTF) challenges I have solved
 subcategories:
   - title: Web Exploitation
     url: /ctf-writeups/webex

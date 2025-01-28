@@ -7,25 +7,36 @@ category: courses
 subcategory: hack-the-box
 status: completed
 ---
-# File Upload Attacks
-Hack The Box: Bug Bounty Hunter Path
+
+[Hack The Box's File Upload Attacks module](https://academy.hackthebox.com/module/details/136)
+
+# Table of Contents
+- [1. Overview](#overview)
+- [2. File Upload Vulnerability](#2-file-upload-vulnerability)
+    - [2.1 Entry Points](#21-entry-points)
+    - [2.2 Types of Attacks](#22-types-of-attacks)
+    - [2.3 Types of Filters](#23-types-of-filters)
+    - [2.4 Tools Used](#24-tools-used)
+- [3. Mitigation Strategies](#3-mitigation-strategies)
+- [4. Resources](#4-resources)
+
 
 ## 1. Overview
-- **Topic(s) covered**: File upload vuln, bypassing file filters, combining other vulns
+- **Topic(s) covered**: File upload vulnerability, bypassing file filters, combining other vulnerabilities
 - **Goal**: Learn how attackers exploit improperly secured file upload functionalities to execute malicious actions like remote code execution or privilege escalation.
 
 
 ## 2. File Upload Vulnerability
-(File Upload Attacks occur when attackers exploit insecure file upload mechanisms to upload malicious files, such as scripts, malware, or payloads.)
+File Upload Attacks occur when attackers exploit insecure file upload mechanisms to upload malicious files, such as scripts, malware, or payloads.
 
 ### 2.1 Entry Points
 - File upload forms (e.g., profile picture, file attachment)
 - API endpoint that accepts file upload
 
 ### 2.2 Types of Attacks
-- **Remote Command Execution (RCE)**:
+1. **Remote Command Execution (RCE)**:
    Uploading a web shell or reverse shell script to execute commands on the server.
-- **Exploiting Other Vulnerabilities**:
+2. **Exploiting Other Vulnerabilities**:
    Injecting malicious code to trigger vulnerabilities like **XSS** (Cross-Site Scripting) or **XXE** (XML External Entity Injection).
    - Examples:
        1. File metadata (XSS)
@@ -53,9 +64,9 @@ Hack The Box: Bug Bounty Hunter Path
            <!DOCTYPE svg [ <!ENTITY xxe SYSTEM "php://filter/convert.base64-encode/resource=index.php"> ]>
            <svg>&xxe;</svg>
            ```
-- **Denial of Service (DoS)**:
+3. **Denial of Service (DoS)**:
    Uploading excessively large files to overwhelm server resources.(e.g., ZIP bomb)
-- **File Overwrite**:
+4. **File Overwrite**:
    Replacing critical system files or configurations, potentially causing service disruptions or enabling further exploitation.
 
 ### 2.3 Types of filters
@@ -105,11 +116,11 @@ Hack The Box: Bug Bounty Hunter Path
        2. Changing the magic bytes of a malicious file to match the signature of an allowed type (e.g., modifying a PHP file's signature to mimic a JPEG).
        3. Using polyglot files, where a file satisfies multiple type checks (e.g., a JPEG with embedded PHP code).
 
-### 2.3 Tools Used
-- [Burp Suite]: Web proxy to intercept and modify file upload requests.
-- [ExifTool]: Embed malicious payloads in image metadata. (e.g., comment in a JPEG image)
-- [OWASP ZAP]: Scan file upload functionalities for vulnerabilities.
-- [Wordlists]: Compilation of web extensions to fuzz the file upload mechanism (e.g., [Seclists](https://github.com/danielmiessler/SecLists/blob/master/Discovery/Web-Content/web-extensions.txt))
+### 2.4 Tools Used
+- [**Burp Suite**]: Web proxy to intercept and modify file upload requests.
+- [**ExifTool**]: Embed malicious payloads in image metadata. (e.g., comment in a JPEG image)
+- [**OWASP ZAP**]: Scan file upload functionalities for vulnerabilities.
+- [**Wordlists**]: Compilation of web extensions to fuzz the file upload mechanism (e.g., [Seclists](https://github.com/danielmiessler/SecLists/blob/master/Discovery/Web-Content/web-extensions.txt))
 
 ## 3. Mitigation Strategies
 - **File Type Whitelisting**:
@@ -124,5 +135,5 @@ Hack The Box: Bug Bounty Hunter Path
    - Limit permissions on the upload directory (e.g., disable script execution).
 
 ## 4. Resources
-- [HTB Cheatsheet](./File_Upload_Attacks_Module_Cheat_Sheet.pdf): A cheatsheet containing essential web shells, bypassing techniques, and file extensions
+- [HTB File Upload Cheatsheet](./File_Upload_Attacks_Module_Cheat_Sheet.pdf): A cheatsheet containing essential web shells, bypassing techniques, and file extensions
 - [PayloadsAllTheThings - File Upload](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Upload%20Insecure%20Files): Collection of payloads and techniques for file upload vulnerabilities.
